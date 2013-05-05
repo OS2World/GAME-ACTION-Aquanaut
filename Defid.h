@@ -1,0 +1,261 @@
+/* Resource IDs */
+#define LANDERL_BMP       1
+#define MUTANTL_BMP       2
+#define SHIPL_BMP         3
+#define SHIPR_BMP         4
+#define N0_BMP            5
+#define N1_BMP            6
+#define N2_BMP            7
+#define N3_BMP            8
+#define N4_BMP            9
+#define N5_BMP           10
+#define N6_BMP           11
+#define N7_BMP           12
+#define N8_BMP           13
+#define N9_BMP           14
+#define HUMAN_BMP        15
+#define SCORE_BMP        16
+#define FLAMER0_BMP		 17
+#define FLAMER1_BMP		 18
+#define FLAMER2_BMP		 19
+#define FLAMER3_BMP		 20
+#define FLAMEL0_BMP		 21
+#define FLAMEL1_BMP		 22
+#define FLAMEL2_BMP		 23
+#define FLAMEL3_BMP		 24
+#define JELLY1_BMP       25 
+#define SWARMER_BMP		 26
+#define SKIMMERL_BMP		 27
+#define BOMBERL_BMP		 28
+#define BULLET_BMP		 29
+#define BOMB_BMP			 30
+#define SMART_BMP			 31
+#define HISCORE_BMP		 32
+#define LIFE_BMP         33
+#define CLRWHITE_BMP 	 34
+#define CLRBLACK_BMP 	 35
+#define CLRGREEN_BMP 	 36
+#define CLRPINK_BMP 		 37
+#define CLRYELLOW_BMP 	 38
+#define CLRPALEGRAY_BMP  39
+#define CLRRED_BMP 		 40
+#define CLRCYAN_BMP 		 41
+#define CLRBLUE_BMP 		 42
+#define LOGO_BMP         43
+#define ERASE_BMP        44
+#define LANDERR_BMP      45
+#define LANDERC_BMP      46
+#define MUTANTR_BMP      47
+#define BOMBERR_BMP      48
+#define JELLY2_BMP       49
+#define JELLY3_BMP 		 50
+#define SKIMMERR_BMP		 51
+#define BUBBLE_BMP       52
+#define MERMAID1_BMP     53
+#define MERMAID2_BMP     54
+#define MERMAID3_BMP     55
+#define MERMAID4_BMP     56
+#define MERMAID5_BMP     57
+#define RING_BMP         58
+#define RINGN_BMP        59
+#define RINGS_BMP        60
+#define RINGE_BMP        61
+#define RINGW_BMP        62
+#define RINGNW_BMP       63
+#define RINGNE_BMP       64
+#define RINGSW_BMP       65
+#define RINGSE_BMP       66
+#define SHIPINVL_BMP     67
+#define SHIPINVR_BMP     68
+
+
+#define SMILE_ICO        80
+#define SOB_ICO			 81
+
+/* Index into bitmap tables */
+#define LANDERL         (LANDERL_BMP-1)
+#define MUTANTL         (MUTANTL_BMP-1)
+#define SHIPL           (SHIPL_BMP-1)   
+#define SHIPR           (SHIPR_BMP-1)
+#define DIGIT_ZERO      (N0_BMP-1)
+#define HUMAN           (HUMAN_BMP-1)
+#define SCORE           (SCORE_BMP-1)
+#define FLAMER          (FLAMER0_BMP-1)
+#define FLAMEL          (FLAMEL0_BMP-1)
+#define JELLY1		      (JELLY1_BMP-1)
+#define SWARMER	      (SWARMER_BMP-1)
+#define SKIMMERL	      (SKIMMERL_BMP-1)
+#define BOMBERL 	      (BOMBERL_BMP-1)	
+#define BULLET		      (BULLET_BMP-1)	
+#define BOMB		      (BOMB_BMP-1)		
+#define SMART		      (SMART_BMP-1)		
+#define HISCORE	      (HISCORE_BMP-1)
+#define LIFE            (LIFE_BMP-1)
+#define CLRWHITE	      (CLRWHITE_BMP-1)
+#define CLRBLACK        (CLRBLACK_BMP-1) 		
+#define CLRGREEN        (CLRGREEN_BMP-1) 		
+#define CLRPINK 	      (CLRPINK_BMP-1) 			
+#define CLRYELLOW       (CLRYELLOW_BMP-1) 		
+#define CLRPALEGRAY     (CLRPALEGRAY_BMP-1)
+#define CLRRED 	      (CLRRED_BMP-1) 			
+#define CLRCYAN 	      (CLRCYAN_BMP-1) 			
+#define CLRBLUE 	      (CLRBLUE_BMP-1) 			
+#define LOGO            (LOGO_BMP-1)
+#define ERASE           (ERASE_BMP-1)
+#define LANDERR         (LANDERR_BMP-1)
+#define LANDERC         (LANDERC_BMP-1)
+#define MUTANTR         (MUTANTR_BMP-1)
+#define BOMBERR 	      (BOMBERR_BMP-1)	
+#define JELLY2          (JELLY2_BMP-1)
+#define JELLY3          (JELLY3_BMP-1)
+#define SKIMMERR	      (SKIMMERR_BMP-1)
+#define BUBBLE          (BUBBLE_BMP-1)
+#define MERMAID1        (MERMAID1_BMP-1)
+#define MERMAID2        (MERMAID2_BMP-1)
+#define MERMAID3        (MERMAID3_BMP-1)
+#define MERMAID4        (MERMAID4_BMP-1)
+#define MERMAID5        (MERMAID5_BMP-1)
+#define RING            (RING_BMP-1)
+#define RINGN           (RINGN_BMP-1)
+#define RINGS           (RINGS_BMP-1)
+#define RINGE           (RINGE_BMP-1)
+#define RINGW           (RINGW_BMP-1)
+#define RINGNW          (RINGNW_BMP-1)
+#define RINGNE          (RINGNE_BMP-1)
+#define RINGSW          (RINGSW_BMP-1)
+#define RINGSE          (RINGSE_BMP-1)
+#define SHIPINVL        (SHIPINVL_BMP-1)                        
+#define SHIPINVR        (SHIPINVR_BMP-1)                        
+
+/* Menu IDs */
+#define MENU_ID                  100
+#define MENU_GAME_ID		  	  	   101
+#define MENU_START_ID	  	  	   102
+#define MENU_EXIT_ID		  	  	   103
+#define MENU_OPTIONS_ID	  	  	   104
+#define MENU_KEY_ID		  	  	   105
+#define MENU_SPEED_ID  	  	  	   106
+#define MENU_BULLET_ID           107
+#define MENU_HELP_ID					108
+#define MENU_HELPINDEX_ID			109
+#define MENU_HELPEXTENDED_ID		110
+#define MENU_HELPHELPFORHELP_ID	111
+#define MENU_HELPKEYSHELP_ID		112
+#define MENU_HELPABOUT_ID			113
+#define MENU_STOP_ID		  	  	   114
+#define MENU_PAUSE_ID	  	  	   115
+#define MENU_SHIPS_ID            116
+#define MENU_3SHIPS_ID           117
+#define MENU_4SHIPS_ID           118
+#define MENU_5SHIPS_ID           119
+#define MENU_SMARTS_ID           120
+#define MENU_3SMARTS_ID          121
+#define MENU_5SMARTS_ID          122
+#define MENU_7SMARTS_ID          123
+#define MENU_FRAME_CONTROLS_ID   124
+#define MENU_OBJECT_SIZE_ID      125
+#define MENU_HISCORE_ID          126
+#define MENU_SOUND_ID            127
+#define MENU_SONAR_ID				128
+#define MENU_SONAR_FADE_ID			129
+#define MENU_SONAR_PERSIST_ID		130
+#define MENU_SONAR_NO_ID			131
+#define MENU_REGISTER_ID         132
+#define MENU_MOUSE_ID				133
+#define MENU_MUSIC_ID            134
+#define MENU_BUBBLES_ID          135
+#define MENU_HELPEXTRA_ID			136
+#define MENU_DEMO_ID					137
+#define MENU_DEMO_PLAY_ID			138
+#define MENU_DEMO_RECORD_ID		139
+
+/* Keys dialog IDs */
+#define KEY_DLG_ID		  200
+#define UP_ID				  201
+#define DOWN_ID			  202
+#define TURN_ID			  203
+#define THRUST_ID			  204
+#define FIRE_ID			  205
+#define SMART_ID			  206
+#define HYPER_ID			  207
+#define UP_TEXT_ID		  208
+#define DOWN_TEXT_ID		  209
+#define TURN_TEXT_ID		  210
+#define THRUST_TEXT_ID	  211
+#define FIRE_TEXT_ID		  212
+#define SMART_TEXT_ID	  213
+#define HYPER_TEXT_ID	  214
+#define TURN_THRUST_ID    215
+#define LEFT_RIGHT_ID     216
+
+/* speed and size dialog IDs */
+#define SPEED_DLG_ID      300
+#define SIZE_DLG_ID       301
+#define SLIDER_ID         302
+
+/* Common IDs */
+#define DID_HELP          400
+
+/* Product info dialog */
+#define PROD_INFO_DLG_ID  500
+#define PROD_LOGO_ID      501
+#define PROD_REG_TO_ID    502
+#define PROD_REG_NAME_ID  503
+
+/* Unregistered product dialog */
+#define UNREG_DLG_ID		  600
+#define UNREG_CB0         601
+#define UNREG_CB1         602
+#define UNREG_CB2         603
+#define UNREG_CB3         604
+#define UNREG_CB4         605
+#define UNREG_CB5         606
+#define UNREG_CB6         607
+#define UNREG_CB7         608
+#define UNREG_CB8         609
+#define UNREG_CB9         610
+#define UNREG_OK          611
+
+/* Hiscore notebook IDs */
+#define HISCORE_DLG_ID    700
+#define NOTEBOOK_ID       701
+
+/* Registration IDs */
+#define REG_DLG_ID        800
+#define REG_NAME_ID		  801
+#define REG_ID_ID			  802
+
+/* Dialogs for successful / unsuccessful registrations */
+#define SORRY_DLG_ID		  900
+#define CONGRATS_DLG_ID   901
+
+/* Help table definitions */
+#define DEF_HELP_TABLE				1000
+#define SUBTABLE_MAIN				1001
+#define PANEL_MAIN               1002
+#define PANEL_HELP					1003
+#define PANEL_HELPINDEX				1004
+#define PANEL_HELPEXTENDED			1005
+#define PANEL_HELPHELPFORHELP		1006
+#define PANEL_HELPABOUT				1007
+#define PANEL_GAMESPEED          1008
+#define PANEL_HELPKEYS           1009
+#define PANEL_KEYS               1010
+#define PANEL_START              1011
+#define PANEL_STOP               1012
+#define PANEL_EXIT               1013
+#define PANEL_PAUSE              1014
+#define PANEL_BULLETS            1015
+#define PANEL_SHIPS					1016
+#define PANEL_SMARTS					1017
+#define PANEL_FRAMECONTROLS      1018
+#define PANEL_OBJECTSIZE         1019
+#define PANEL_HIGHSCORE          1020
+#define PANEL_SOUND				   1021
+#define PANEL_SONAR					1022
+#define PANEL_REGISTER 				1023
+#define PANEL_MOUSE	 				1024
+#define PANEL_MUSIC	 				1025
+#define PANEL_BUBBLES  				1026
+#define PANEL_DEMO_PLAY  			1027
+#define PANEL_DEMO_RECORD			1028

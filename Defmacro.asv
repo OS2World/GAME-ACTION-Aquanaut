@@ -1,0 +1,125 @@
+/***************************************************************************
+
+   MACROS
+
+***************************************************************************/
+
+#define myrand {
+
+/* 
+** This macro adds an item to the draw list - it's implemented as a macro
+** rather than a function for speed (at the expense of executable size)
+** since this eliminates pushing parameters on and off the stack.
+*/
+#define Draw(p1,p2,p3,p4,p5,p6,p7,p8) \
+	stDrawItem[usDrawItems].fDraw = TRUE; \
+	stDrawItem[usDrawItems].x = p1; \
+	stDrawItem[usDrawItems].y = p2; \
+	stDrawItem[usDrawItems].fErase = p3; \
+	stDrawItem[usDrawItems].bitmap = p4; \
+	stDrawItem[usDrawItems].fLaserCheck = p5; \
+	stDrawItem[usDrawItems].fShipCheck = p6; \
+	stDrawItem[usDrawItems].sDrawIdx = p7; \
+	stDrawItem[usDrawItems++].sRadarIdx = p8;
+
+
+/* 
+** Similarly this macro adds an item to the draw list.  Note that this sets
+** the global variable sMarker to index into the item that's created.
+*/
+#define  DrawMarker(p1,p2,p3,p4) \
+	if (p1 != NO_OLD_RADAR) \
+	{ \
+	   if ((stScanner.sMode != SCANNER_SWEEP) || (p4 == TRUE) || \
+		 	 ((stScanner.rx - SCANNER_PERSIST > STATUS_WIDTH) ? \
+			  	((p1 > stScanner.rx - SCANNER_PERSIST) && (p1 < stScanner.rx)) : \
+			   ((p1 < stScanner.rx) || \
+			  			(p1 > stScanner.rx + RADAR_WIDTH - SCANNER_PERSIST)))) \
+		{ \
+			stMarkerItem[usMarkerItems].fDraw = TRUE; \
+			stMarkerItem[usMarkerItems].x = p1; \
+			stMarkerItem[usMarkerItems].y = p2; \
+			stMarkerItem[usMarkerItems].bitmap = p3; \
+	   	gsMarker = usMarkerItems++; \
+		} \
+	}
+
+/* 
+** Similarly this one sets up a laser bolt
+*/
+#define DrawLaser(p1,p2,p3,p4,p5) \
+	stBoltItem[usBoltItems].point1.x = p1; \
+	stBoltItem[usBoltItems].point1.y = p2; \
+	stBoltItem[usBoltItems].point2.x = p3;	\
+	stBoltItem[usBoltItems].point2.y = p4; \
+	stBoltItem[usBoltItems++].lColor = p5;
+
+/*
+** Draw 5 markers for the appearance of landers/mutants 
+*/
+#define DrawAppearance(p1,p2,p3,p4) \
+	DrawMarker((p1 - p3), p2, p4, TRUE); \
+	DrawMarker((p1 - p3), (p2 - p3), p4, TRUE); \
+	DrawMarker(p1, (p2 - p3), p4, TRUE); \
+	DrawMarker((p1 + p3), (p2 - p3), p4, TRUE); \
+	DrawMarker((p1 + p3), p2, p4, TRUE);
+
+/*
+** This macro sets up an entry in the text list
+*/
+#define DisplayText(p1,p2,p3,p4,p5,p6) \
+{ \
+   INT iDT; \
+	for (iDT = 0;  iDT < NUM_TEXTS;  iDT++) \
+	{ \
+		if (!stText[iDT].fActive) \
+		{ \
+			strcpy (stText[iDT].szText,p1); \
+			stText[iDT].x = p2; \
+			stText[iDT].y = p3;	\
+			stText[iDT].lColor = p4; \
+			stText[iDT].fCenter = p5;	\
+			stText[iDT].fActive = TRUE;\
+			stText[iDT].sDuration = (p6 == TRUE) ? 0 : TEXT_PERSISTENCE; \
+			break; \
+		} \
+	} \
+}
+
+/* This macro defines the world position of the right edge of the screen */
+#define SCREEN_RIGHT ((gsWorld + SCREEN_WIDTH) % PLANET_SIZE)
+
+/* This macro determines whether a world x value is within the screen area */
+#define ON_SCREEN(x) ((gsWorld < SCREEN_RIGHT) ? \
+									((x >= gsWorld) && (x <= SCREEN_RIGHT)) : \
+									((x >= gsWorld) || (x <= SCREEN_RIGHT)))
+
+/* This macro calculates the screen X position from the world X position */
+#define SCREENX(x) ((x > gsWorld) ? (x - gsWorld) \
+											  : (PLANET_SIZE + x - gsWorld))
+
+/* These macros calculate the screen X and Y position on the radar display */
+#define RADARX(x) ((x > gsRadar) ? \
+						((((x - gsRadar) * (RADAR_WIDTH - stBitmap[CLRBLUE].cx - 3)) \
+										/ PLANET_SIZE) + STATUS_WIDTH + 3) : \
+							((((PLANET_SIZE + x - gsRadar) * \
+									(RADAR_WIDTH - stBitmap[CLRBLUE].cx - 3)) / \
+										PLANET_SIZE) + STATUS_WIDTH + 3))
+
+#define RADARY(y) (((y * (STATUS_HEIGHT - stBitmap[CLRBLUE].sy - 1)) / \
+                                          PLAY_HEIGHT) + PLAY_HEIGHT + 1)
+
+/* Select a random color for the lasers */
+#define LASERCOLOR (lLaserColor[myrand() % NUM_LASERCOLORS])
+
+/* Select a random bitmap color for the stars */
+#define STARCOLOR (CLRWHITE + (myrand() % (CLRCYAN-CLRWHITE)))
+
+/* Scale the points to map the display type to SCREEN_WIDTH & SCREEN_HEIGHT */
+#define SCALEX(x) ((x * glWindowX) / SCREEN_WIDTH)
+#define SCALEY(y) ((y * glWindowY) / SCREEN_HEIGHT)
+
+/* Set the draw state and wait for the WM_PAINT to post the semaphore */
+#define PAINT(s) WinPostMsg (hwndDefClient, WM_USER, (MPARAM)s, (MPARAM)0L);\
+					  DosWaitEventSem (hPaintEventSem, SEM_INDEFINITE_WAIT); \
+					  DosResetEventSem (hPaintEventSem, &gulCount);

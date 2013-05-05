@@ -1,0 +1,25 @@
+Stack Allocation = 36000 bytes
+
+ DEF
+
+ Start         Length     Name                   Class
+ 0001:00000000 00001FB94H CODE32                 CODE 32-bit
+ 0001:0001FB94 000000030H _MSGSEG32              CODE 32-bit
+ 0002:00000000 000002628H DATA32                 DATA 32-bit
+ 0002:00002630 000000926H CONST32                CONST 32-bit
+ 0002:00002F58 00000000CH EDC1                   EDC_CLASS 32-bit
+ 0002:00002F64 000000414H EDC2                   EDC_CLASS 32-bit
+ 0002:00003378 000000004H EDC3                   EDC_CLASS 32-bit
+ 0002:00003380 000000000H BSS32                  BSS 32-bit
+ 0002:00003380 000007920H c_common               BSS 32-bit
+ 0002:0000ACA0 000008CA0H STACK32                STACK 32-bit
+
+ Origin   Group
+ 0002:0   DGROUP
+ 0000:0   FLAT
+
+ Address       Export                  Alias
+
+ 0001:00001DD0 DefWindowProc           DefWindowProc
+
+Program entry point at 0001:00014634

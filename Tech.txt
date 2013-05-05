@@ -1,0 +1,240 @@
+             
+           A Q U A N A U T   T E C H N I C A L  I N F O
+         ------------------------------------------------
+
+This text is intended to provide a few pointers for people who wish to write
+games or other applications for OS/2.  While not giving away too much of the
+source code to Aquanaut! it hoipefully provides enough information to be of
+use to the intended audience.
+
+To understand this text a certain level of understanding of PM is required.
+
+
+1) How did I create the Aquanaut! logo?
+---------------------------------------
+
+Run Ami Pro (or some equivalent word processor) and steal the text from there.
+I ran the Windows version of Ami Pro, created a graphics frame, used a big
+italic font, copied the graphics frame to the clipboard, ran OS/2's clipboard
+viewer and rendered the font as a bitmap, ran iconedit and pasted the bitmap.
+Finally touched it up and altered the colors etc.  And hey presto!  All of
+the bitmaps and the Aquanaut icon were created using iconedit.  It is a
+little bit limited, but can be used in lieu of anything better.
+
+
+2) How did I zoom the logo in the opening sequence?
+---------------------------------------------------
+
+Easy!  Just call GpiBitBlt repeatedly, increasing the size and moving the 
+position of the target rectangle with each frame.
+
+
+3) How do I maintain the aspct ratio of the window when it is sized?
+--------------------------------------------------------------------
+
+Create a window procdedure to intercept the WM_ADJUSTWINDOWPOS message and
+chain it in by calling WinSubclassWindow.  Just modify the cx and/or cy
+parameters to this message.
+
+
+4) How does the game play at a constant speed?
+----------------------------------------------
+
+There are 3 threads:  the PM thread, the main thread and a thread for sound.
+The main thread kicks off a timer (WinStartTimer) and in its main loop
+does the following:
+
+   move the position of all objects
+   check for collisions/laser hits etc
+   set up the objects to be drawn
+   draw all objects
+   wait on an event semaphore
+
+The event semaphore is posted when the PM thread receives a WM_TIMER message,
+which gets the main thread going again.  Hence, each frame is controlled by
+the rate that the WM_TIMER messages are received (which is exactly what the
+game speed setting modifies!).
+
+
+5) How is flickering minimized and why is painting so fast?
+-----------------------------------------------------------
+
+All drawing is done directly to the screen presentation space.  This is done
+to achieve the desired speed.  Drawing the whole screen to a memory PS then 
+blitting it to the screen PS would be far too slow to be acceptable.  So
+the secret of reducing flicker is to minimize the delay between erasing the
+old bitmap and drawing it in its new position.  To do this, I keep a list
+of 'draw objects'.  To move an object I add an 'erase' item to the draw list,
+calculate the new position, then add a 'draw' item to the draw list.  Once
+all items have been added to the list in this way, the code loops through
+GpiBitBlt'ing each object in turn with no processing occuring between 
+erasing the old item and drawing the new one - just successive GpiBitBlts.
+
+To maximize the speed further, bitmaps are not stretched or compressed at 
+the time of drawing.  It is much more efficient to GpiBitBlt them without
+stretching (pass 3L as the number of points in the GpiBitBlt call).  Hence,
+whenever a window sizing is done, there is a small dealy before the window
+repaints.  This is because all the bitmaps are being resized during the
+WM_SIZE operation.  Bitmaps are stored in memory device contexts which are
+created in the WM_CREATE processing as follows:
+
+  case WM_CREATE:
+     /* Create memory contexts for bitmaps - they're loaded in WM_SIZE */
+     for (i = 0;  i < NUM_BMPS;  i++)
+     {
+        hdc[i] = DevOpenDC (hab, OD_MEMORY, "*", 0L, 0L, 0L);
+        sizl.cx = 0;
+        sizl.cy = 0;
+        hpsMemory[i] = GpiCreatePS (hab, hdc[i], &sizl,
+                                    PU_PELS | GPIF_DEFAULT |
+                                    GPIT_MICRO | GPIA_ASSOC);
+     }
+
+Then in WM_SIZE:
+
+  case WM_SIZE:
+     /* Stretch the bitmaps to fit */
+     for (i = 0;  i < NUM_BMPS;  i++)
+     {
+        /* Load the bitmap without stretching to get its size */
+        hbm[i] = GpiLoadBitmap (hpsMemory[i], NULLHANDLE,
+                                 stBitmap[i].bitmap, 0L, 0L);
+   
+        bmpData.cbFix = sizeof(bmpData);
+        GpiQueryBitmapParameters (hbm[i], &bmpData);
+
+        /* Calculate the new size and stretch accordingly */
+        stBitmap[i].sx = SCALEX (bmpData.cx);
+        stBitmap[i].sy = SCALEY (bmpData.cy);
+
+        /* Reload the bitmap, stretching it using the scale factor */
+        hbm[i] = GpiLoadBitmap (hpsMemory[i], NULLHANDLE,
+                                stBitmap[i].bitmap, 
+                                stBitmap[i].sx,
+                                stBitmap[i].sy);
+
+        GpiSetBitmap (hpsMemory[i], hbm[i]);
+     }
+
+This done, drawing the bitmap is a simple GpiBitBlt from the memory hbm to
+the screen PS.
+
+
+6) How is the sound implemented?
+--------------------------------
+
+There's a few things you need to do to get good sound performance.  First
+and foremost, you should have a separate thread for sound.  This thread
+should load the WAV files through MMIO calls as follows:
+
+    HMMIO          hmmio;                /* MMIO handle */
+    MMIOINFO       mmioInfo;             /* For mmioOpen() */
+    MMAUDIOHEADER  mmAudioHeader;        /* Filled in by mmioGetHead() */
+
+    for (i = 0;  i < NUM_WAV_FILES; i++)
+    {
+       memset ((PVOID) &mmioInfo, 0, sizeof(mmioInfo));
+
+       /* Open the file for reading */
+       hmmio = mmioOpen (szFile, NULL, MMIO_READ);
+
+       /* Get the wavefile's header */
+       rc = mmioGetHeader (hmmio,
+                           (PVOID) &mmAudioHeader,
+                           sizeof (MMAUDIOHEADER),
+                           (PLONG) &ulBytesRead,
+                           (ULONG) NULL,
+                           (ULONG) NULL);
+
+       /* Save the size of this file's wave audio data */
+       ulSize = 
+              mmAudioHeader.mmXWAVHeader.XWAVHeaderInfo.ulAudioLengthInBytes;
+
+       pulData = (PULONG) malloc (ulSize);
+
+       /* Read the entire wavefile into pulData */
+       rc = mmioRead (hmmio, (PSZ) pulData, ulSize);
+
+       /* Close file */
+       rc = mmioClose(hmmio, 0);
+
+       stWaveData[i].pulData = pulData;
+       stWaveData[i].ulSize  = ulSize;
+    }
+
+Then open up the waveaudio device with MCI_OPEN_PLAYLIST flag set and the
+element pointing to the following playlist:
+
+    PLAYLIST stPlaylist[] =
+    {
+       DATA_OPERATION,    0, 0, 0,   // Line 0: File to play
+       EXIT_OPERATION,    0, 0, 0    // Line 1: Exit
+    };
+
+Set the speed, number of channels and mono/stereo setting (all the sounds in
+Aquanaut are mono/8 bit/11.025Khz which is good enough).  Then the sound
+thread goes into a loop waiting for an event semaphore to signal that a sound
+is being requested and selected through the global variable gusSoundIdx:
+
+
+   while (gAction != EXIT)
+   {
+      /* Wait for a sound to be signalled */
+     DosWaitEventSem (hSoundEventSem, SEM_INDEFINITE_WAIT);
+     DosResetEventSem (hSoundEventSem, &ulCount);
+
+      stPlaylist[0].ulOp1 = (ULONG) stWaveData[gusSoundIdx].pulData;
+      stPlaylist[0].ulOp2 = stWaveData[gusSoundIdx].ulSize;
+
+     /* Seek waveaudio device to start */
+      ....
+
+     /* Play waveaudio */
+      ....
+   }
+
+It's that simple!  Well almost: you also need to make sure you do the 
+following:
+
+   1. Keep track of the sound that is playing and assign priorities to the
+      sounds.  Then only allow a sound to be played if there is no sound
+      currently playing, or the sound playing has a lower priority.  I do
+      this thru another global variable which is reset when a notification
+      message is received:
+
+      case MM_MCINOTIFY:
+         if (SHORT2FROMMP (mp1) == PLAYLIST_ID)
+         {
+            /* This means sound has finished so set sound playing to FALSE */
+            gsSoundPlaying = -1;
+         }
+
+   2. Keep track of whether you have the waveaudio device:
+
+      case MM_MCIPASSDEVICE:
+         /* Keep track of whether we have the device or not */
+         gfPassed = !(SHORT1FROMMP(mp2) == MCI_GAINING_USE);
+         break;
+
+   3. Acquire the waveaudio device when the window is activated.  This is
+      required to particiapate in device sharing.  Note that you don't have 
+      to do anything to relinquish the device if you open it with the 
+      MCI_OPEN_SHAREABLE flag.
+
+      case WM_ACTIVATE:
+         /* If the window is now active acquire the audio device */
+         if ((BOOL) mp1 && gfPassed)
+         {
+            mciGenericParms.hwndCallback = hwnd;
+            mciSendCommand (gusWaveDeviceID,
+                            MCI_ACQUIREDEVICE,
+                            (ULONG) MCI_NOTIFY,
+                            (PVOID) &mciGenericParms,
+                            (USHORT) 0);
+         }
+
+
+Hope all this is of help and will encourage you to have a go at writing 
+your own PM games.
+
+(c) Paul Stanley 1994.

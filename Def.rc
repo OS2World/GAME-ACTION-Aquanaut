@@ -1,0 +1,429 @@
+#define INCL_PM
+#include <os2.h>
+#include "defid.h"
+
+BITMAP LANDERL_BMP      seahorsl.bmp
+BITMAP LANDERR_BMP      seahorsr.bmp
+BITMAP LANDERC_BMP      seahorsc.bmp
+BITMAP MUTANTL_BMP      muthorsl.bmp
+BITMAP MUTANTR_BMP      muthorsr.bmp
+BITMAP SHIPL_BMP        shipl.bmp
+BITMAP SHIPR_BMP        shipr.bmp
+BITMAP N0_BMP	        n0.bmp
+BITMAP N1_BMP	        n1.bmp
+BITMAP N2_BMP	        n2.bmp
+BITMAP N3_BMP	        n3.bmp
+BITMAP N4_BMP	        n4.bmp
+BITMAP N5_BMP	        n5.bmp
+BITMAP N6_BMP	        n6.bmp
+BITMAP N7_BMP	        n7.bmp
+BITMAP N8_BMP	        n8.bmp
+BITMAP N9_BMP	        n9.bmp
+BITMAP HUMAN_BMP        human.bmp
+BITMAP SCORE_BMP        score.bmp
+BITMAP FLAMER0_BMP      flamer0.bmp
+BITMAP FLAMER1_BMP      flamer1.bmp
+BITMAP FLAMER2_BMP      flamer2.bmp
+BITMAP FLAMER3_BMP      flamer3.bmp
+BITMAP FLAMEL0_BMP      flamel0.bmp
+BITMAP FLAMEL1_BMP      flamel1.bmp
+BITMAP FLAMEL2_BMP      flamel2.bmp
+BITMAP FLAMEL3_BMP      flamel3.bmp
+BITMAP JELLY1_BMP  	    jelly1.bmp    
+BITMAP JELLY2_BMP  	    jelly2.bmp    
+BITMAP JELLY3_BMP  	    jelly3.bmp    
+BITMAP SWARMER_BMP	    swarmer.bmp
+BITMAP SKIMMERR_BMP	    skimmerr.bmp
+BITMAP SKIMMERL_BMP	    skimmerl.bmp
+BITMAP BOMBERL_BMP	    bomberl.bmp	
+BITMAP BOMBERR_BMP	    bomberr.bmp	
+BITMAP BULLET_BMP	    bullet.bmp	
+BITMAP BOMB_BMP		    bomb.bmp		
+BITMAP SMART_BMP	    smart.bmp		
+BITMAP HISCORE_BMP	    hiscore.bmp
+BITMAP LIFE_BMP         life.bmp
+BITMAP CLRWHITE_BMP		clrwhite.bmp
+BITMAP CLRBLACK_BMP   	clrblack.bmp   
+BITMAP CLRGREEN_BMP   	clrgreen.bmp   
+BITMAP CLRPINK_BMP 	  	clrpink.bmp 	  
+BITMAP CLRYELLOW_BMP  	clryello.bmp  
+BITMAP CLRPALEGRAY_BMP	clrpgray.bmp
+BITMAP CLRRED_BMP 	  	clrred.bmp 	  
+BITMAP CLRCYAN_BMP 	  	clrcyan.bmp 	  
+BITMAP CLRBLUE_BMP 	  	clrblue.bmp 	  
+BITMAP LOGO_BMP         logo.bmp
+BITMAP ERASE_BMP        erase.bmp
+BITMAP BUBBLE_BMP       bubble.bmp
+BITMAP MERMAID1_BMP     mermaid1.bmp
+BITMAP MERMAID2_BMP     mermaid2.bmp
+BITMAP MERMAID3_BMP     mermaid3.bmp
+BITMAP MERMAID4_BMP     mermaid4.bmp
+BITMAP MERMAID5_BMP     mermaid5.bmp
+BITMAP RING_BMP         ring.bmp
+BITMAP RINGN_BMP        ringn.bmp 
+BITMAP RINGS_BMP        rings.bmp 
+BITMAP RINGE_BMP        ringe.bmp 
+BITMAP RINGW_BMP        ringw.bmp 
+BITMAP RINGNW_BMP       ringnw.bmp
+BITMAP RINGNE_BMP       ringne.bmp
+BITMAP RINGSW_BMP       ringsw.bmp
+BITMAP RINGSE_BMP       ringse.bmp
+BITMAP SHIPINVL_BMP     shipinvl.bmp
+BITMAP SHIPINVR_BMP     shipinvr.bmp
+
+/* Smile and sob icons */
+ICON SOB_ICO   SOB.ICO
+ICON SMILE_ICO SMILE.ICO
+
+/* The minimized icon */
+ICON 1 DEF.ICO
+
+/* Accelerator table */
+ACCELTABLE MENU_ID
+BEGIN
+    VK_F2, MENU_START_ID, CHAR, VIRTUALKEY
+    VK_F3, MENU_EXIT_ID, CHAR, VIRTUALKEY
+    VK_F4, MENU_STOP_ID, CHAR, VIRTUALKEY
+    VK_F5, MENU_PAUSE_ID, CHAR, VIRTUALKEY
+	"k", MENU_KEY_ID, CHAR, CONTROL
+	"K", MENU_KEY_ID, CHAR, CONTROL
+	"G", MENU_SPEED_ID, CHAR, CONTROL
+	"g", MENU_SPEED_ID, CHAR, CONTROL
+	"O", MENU_OBJECT_SIZE_ID, CHAR, CONTROL
+	"o", MENU_OBJECT_SIZE_ID, CHAR, CONTROL
+	"B", MENU_BULLET_ID, CHAR, CONTROL
+	"b", MENU_BULLET_ID, CHAR, CONTROL
+	"F", MENU_FRAME_CONTROLS_ID, CHAR, CONTROL
+	"f", MENU_FRAME_CONTROLS_ID, CHAR, CONTROL
+	"S", MENU_SOUND_ID, CHAR, CONTROL
+	"s", MENU_SOUND_ID, CHAR, CONTROL
+	"M", MENU_MOUSE_ID, CHAR, CONTROL
+	"m", MENU_MOUSE_ID, CHAR, CONTROL
+	"C", MENU_MUSIC_ID, CHAR, CONTROL
+	"c", MENU_MUSIC_ID, CHAR, CONTROL
+	"U", MENU_BUBBLES_ID, CHAR, CONTROL
+	"u", MENU_BUBBLES_ID, CHAR, CONTROL
+END
+
+/* Define the menu bar */
+MENU MENU_ID
+BEGIN
+   SUBMENU "~Game", MENU_GAME_ID, MIS_TEXT
+   BEGIN
+      MENUITEM "~Start\tF2", MENU_START_ID, MIS_TEXT
+      MENUITEM "S~top\tF4", MENU_STOP_ID, MIS_TEXT
+      MENUITEM "~Pause\tF5", MENU_PAUSE_ID, MIS_TEXT
+      MENUITEM SEPARATOR
+      MENUITEM "E~xit\tF3", MENU_EXIT_ID, MIS_TEXT
+      MENUITEM SEPARATOR
+	  SUBMENU "~Demo", MENU_DEMO_ID, MIS_TEXT
+      BEGIN
+         MENUITEM "~Play", MENU_DEMO_PLAY_ID, MIS_TEXT
+         MENUITEM "~Record", MENU_DEMO_RECORD_ID, MIS_TEXT
+      END
+      MENUITEM SEPARATOR
+      MENUITEM "~High-Score Table...", MENU_HISCORE_ID, MIS_TEXT
+      MENUITEM SEPARATOR
+      MENUITEM "~Register...", MENU_REGISTER_ID, MIS_TEXT
+   END
+
+   SUBMENU "~Options", MENU_OPTIONS_ID, MIS_TEXT
+   BEGIN
+      MENUITEM "~Keys Selection...\tCtrl-K", MENU_KEY_ID, MIS_TEXT
+      MENUITEM "~Game Speed...\tCtrl-G", MENU_SPEED_ID, MIS_TEXT
+	  MENUITEM "Enemy ~Bullets\tCtrl-B", MENU_BULLET_ID, MIS_TEXT
+	  MENUITEM "B~ubbles\tCtrl-U", MENU_BUBBLES_ID, MIS_TEXT
+	  MENUITEM "S~ound\tCtrl-S", MENU_SOUND_ID, MIS_TEXT
+	  MENUITEM "Musi~c\tCtrl-C", MENU_MUSIC_ID, MIS_TEXT
+	  MENUITEM "~Mouse\tCtrl-M", MENU_MOUSE_ID, MIS_TEXT
+      MENUITEM SEPARATOR
+	  SUBMENU "~Submarines", MENU_SHIPS_ID, MIS_TEXT
+      BEGIN
+         MENUITEM "~3", MENU_3SHIPS_ID, MIS_TEXT
+         MENUITEM "~4", MENU_4SHIPS_ID, MIS_TEXT
+         MENUITEM "~5", MENU_5SHIPS_ID, MIS_TEXT
+      END
+	  SUBMENU "S~catter Bombs", MENU_SMARTS_ID, MIS_TEXT
+      BEGIN
+         MENUITEM "~3", MENU_3SMARTS_ID, MIS_TEXT
+         MENUITEM "~5", MENU_5SMARTS_ID, MIS_TEXT
+         MENUITEM "~7", MENU_7SMARTS_ID, MIS_TEXT
+      END
+	  SUBMENU "Sona~r", MENU_SONAR_ID, MIS_TEXT
+      BEGIN
+         MENUITEM "Sweep/~Fade",    MENU_SONAR_FADE_ID, MIS_TEXT
+         MENUITEM "Sweep/~Persist", MENU_SONAR_PERSIST_ID, MIS_TEXT
+         MENUITEM "~No Sweep",      MENU_SONAR_NO_ID, MIS_TEXT
+      END
+      MENUITEM SEPARATOR
+	  MENUITEM "~Frame Controls\tCtrl-F", MENU_FRAME_CONTROLS_ID, MIS_TEXT
+	  MENUITEM "~Object Size...\tCtrl-O", MENU_OBJECT_SIZE_ID, MIS_TEXT
+   END
+
+   SUBMENU "~Help", MENU_HELP_ID, MIS_TEXT
+   BEGIN
+      MENUITEM "Help ~index", MENU_HELPINDEX_ID, MIS_TEXT
+      MENUITEM "~General help", MENU_HELPEXTENDED_ID, MIS_TEXT
+      MENUITEM "~Using help", MENU_HELPHELPFORHELP_ID, MIS_TEXT
+      MENUITEM "~Keys help", MENU_HELPKEYSHELP_ID, MIS_TEXT
+      MENUITEM SEPARATOR
+      MENUITEM "~Product information", MENU_HELPABOUT_ID, MIS_TEXT
+   END
+END
+
+/* Key selection dialog */
+DLGTEMPLATE KEY_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Key Selection", KEY_DLG_ID, -19, -20, 184, 159, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        AUTORADIOBUTTON "Up", UP_ID, 13, 86, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Down", DOWN_ID, 13, 76, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Turn", TURN_ID, 13, 66, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Thrust", THRUST_ID, 13, 56, 39, 10, 
+                        BS_NOCURSORSELECT | BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Fire", FIRE_ID, 13, 46, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Smart Bomb", SMART_ID, 13, 36, 65, 10, 
+                        BS_NOCURSORSELECT | BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Hyperspace", HYPER_ID, 13, 26, 60, 10, 
+                        BS_NOCURSORSELECT | BS_NOPOINTERFOCUS | WS_TABSTOP
+        LTEXT           "A", UP_TEXT_ID, 100, 87, 70, 8
+        LTEXT           "Z", DOWN_TEXT_ID, 100, 77, 70, 8
+        LTEXT           "Space", TURN_TEXT_ID, 100, 67, 70, 8
+        LTEXT           ".", THRUST_TEXT_ID, 100, 57, 70, 8
+        LTEXT           ",", FIRE_TEXT_ID, 100, 47, 70, 8
+        LTEXT           "/", SMART_TEXT_ID, 100, 37, 70, 8
+        LTEXT           "Shift (L)", HYPER_TEXT_ID, 100, 27, 70, 8
+        LTEXT           "Select a button then press a key to be", 
+                        MENU_HELP_ID, 9, 109, 169, 8
+        LTEXT           "used for that function:", MENU_HELPINDEX_ID, 9, 101, 
+                        141, 8
+        DEFPUSHBUTTON   "~Ok", DID_OK, 11, 6, 40, 14
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 59, 6, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 107, 6, 40, 14
+        LTEXT           "Select Turn/Thrust or Left/Right key", 400, 9, 142, 
+                        169, 8
+        LTEXT           "functions:", 400, 9, 134, 151, 8
+        AUTORADIOBUTTON "Turn/Thrust", TURN_THRUST_ID, 13, 122, 67, 10, 
+						WS_TABSTOP
+        AUTORADIOBUTTON "Left/Right", LEFT_RIGHT_ID, 97, 122, 63, 10, 
+						WS_TABSTOP
+        CONTROL         "", 400, 3, 121, 178, 34, WC_STATIC, SS_FGNDFRAME | 
+                        WS_GROUP | WS_VISIBLE
+        CONTROL         "", 400, 3, 24, 178, 95, WC_STATIC, SS_FGNDFRAME | 
+                        WS_GROUP | WS_VISIBLE
+    END
+END
+
+/* Speed selection dialog */
+DLGTEMPLATE SPEED_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Game Speed Setting", SPEED_DLG_ID, 105, 28, 157, 94, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Move the slider to set the pace of", MENU_GAME_ID, 
+                        4, 80, 142, 8
+        LTEXT           "the game:", MENU_START_ID, 4, 71, 84, 8
+        CONTROL         "", SLIDER_ID, 3, 25, 152, 33, WC_SLIDER, 
+                        SLS_HORIZONTAL | SLS_CENTER | SLS_SNAPTOINCREMENT | 
+                        SLS_BUTTONSLEFT | SLS_RIBBONSTRIP | SLS_HOMELEFT | 
+                        SLS_PRIMARYSCALE1 | WS_VISIBLE
+                        CTLDATA 12, 0, 10, 20, 10, 20
+        DEFPUSHBUTTON   "~Ok", DID_OK, 11, 4, 40, 14
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 54, 4, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 97, 4, 40, 14
+    END
+END
+
+/* Size selection dialog */
+DLGTEMPLATE SIZE_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Object Size Setting", SIZE_DLG_ID, 83, 25, 161, 94, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Move the slider to set the size of", MENU_GAME_ID, 
+                        4, 80, 142, 8
+        LTEXT           "the game objects:", MENU_START_ID, 4, 71, 84, 8
+        CONTROL         "", SLIDER_ID, 2, 25, 157, 33, WC_SLIDER, 
+                        SLS_HORIZONTAL | SLS_CENTER | SLS_SNAPTOINCREMENT | 
+                        SLS_BUTTONSLEFT | SLS_RIBBONSTRIP | SLS_HOMELEFT | 
+                        SLS_PRIMARYSCALE1 | WS_VISIBLE
+                        CTLDATA 12, 0, 10, 20, 10, 20
+        DEFPUSHBUTTON   "~Ok", DID_OK, 13, 4, 40, 14
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 56, 4, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 99, 4, 40, 14
+    END
+END
+
+/* Product Information dialog */
+DLGTEMPLATE PROD_INFO_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", PROD_INFO_DLG_ID, 32, 8, 178, 124, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", PROD_LOGO_ID, 24, 89, 128, 28, "LogoClass", 
+                        WS_GROUP | WS_VISIBLE
+        CTEXT           "All Rights Reserved", 0, 3, 50, 172, 8
+        DEFPUSHBUTTON   "~Ok", DID_OK, 67, 3, 40, 14
+        CTEXT           "Version 1.1", PROD_LOGO_ID, 3, 72, 171, 8
+        CTEXT           "Copyright (c) 1994.  Paul Stanley", 0, 3, 61, 172, 
+                        8
+        CTEXT           "Registered To:", PROD_REG_TO_ID, 10, 35, 156, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        CTEXT           "", PROD_REG_NAME_ID, 10, 25, 156, 8
+        CONTROL         "", 0, 8, 22, 162, 24, WC_STATIC, SS_FGNDFRAME | 
+                        WS_GROUP | WS_VISIBLE
+        CONTROL         "", 0, 8, 48, 162, 73, WC_STATIC, SS_FGNDFRAME | 
+                        WS_GROUP | WS_VISIBLE
+    END
+END
+
+/* Unregistered product dialog */
+DLGTEMPLATE UNREG_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Aquanaut Registration", UNREG_DLG_ID, 113, 9, 204, 145, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        CTEXT           "This copy of", PROD_INFO_DLG_ID, 3, 132, 199, 8
+        CTEXT           "is not registered.  While still being fully", 
+                        PROD_INFO_DLG_ID, 3, 70, 199, 8
+        CTEXT           "playable, this annoying box will be displayed", 
+                        PROD_INFO_DLG_ID, 3, 60, 199, 8
+        CTEXT           "every time the game is run.  Read the", 
+                        PROD_INFO_DLG_ID, 3, 50, 199, 8
+        CTEXT           "help text to find out how to register the game.", 
+                        PROD_INFO_DLG_ID, 3, 40, 199, 8
+        CTEXT           "Check all boxes around the logo to continue.", 
+                        PROD_INFO_DLG_ID, 4, 25, 199, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        DEFPUSHBUTTON   "~Play Aquanaut", UNREG_OK, 11, 2, 84, 14
+        PUSHBUTTON      "~Registration Help", DID_HELP, 108, 2, 84, 14
+        AUTOCHECKBOX    "", UNREG_CB0, 36, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB1, 76, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB2, 156, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB3, 116, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB4, 36, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB5, 76, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB6, 156, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB7, 116, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB8, 23, 100, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB9, 169, 100, 11, 10
+        CONTROL         "", 612, 36, 91, 129, 29, "LogoClass", WS_GROUP | 
+                        WS_VISIBLE
+    END
+END
+
+/* Registration dialog */
+DLGTEMPLATE REG_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Registration", REG_DLG_ID, 12, 6, 185, 84, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Enter your name and the ID you received", MENU_ID, 
+                        3, 69, 178, 8
+        LTEXT           "when you registered Aquanaut!", MENU_ID, 3, 59, 178, 
+                        8
+        ENTRYFIELD      "", REG_NAME_ID, 42, 44, 131, 8, ES_MARGIN
+        LTEXT           "Name :", MENU_ID, 4, 44, 35, 8
+        ENTRYFIELD      "", REG_ID_ID, 42, 29, 131, 8, ES_MARGIN
+        LTEXT           "ID :", MENU_ID, 19, 29, 18, 8
+        DEFPUSHBUTTON   "~Ok", DID_OK, 6, 3, 40, 14
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 56, 3, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 106, 3, 40, 14
+    END
+END
+
+/* Hi score notebook */
+DLGTEMPLATE HISCORE_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "High Score Table", HISCORE_DLG_ID, 12, 8, 198, 185, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", NOTEBOOK_ID, 8, 22, 174, 150, WC_NOTEBOOK, 
+                        BKS_BACKPAGESBR | BKS_MAJORTABRIGHT | BKS_SQUARETABS | 
+                        BKS_STATUSTEXTCENTER | BKS_TABTEXTLEFT | WS_GROUP | 
+                        WS_TABSTOP | WS_VISIBLE
+        DEFPUSHBUTTON   "~Ok", DID_OK, 6, 4, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 49, 4, 40, 14
+    END
+END
+
+/* Dialog for successful registration */
+DLGTEMPLATE CONGRATS_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Registration", CONGRATS_DLG_ID, 12, 12, 206, 96, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Congratulations!!", 1101, 2, 63, 203, 8
+        ICON            SMILE_ICO, SMILE_ICO, 91, 75, 20, 16, WS_GROUP
+        CTEXT           "Thank you for registering.  You shall no longer", 
+                        1103, 1, 52, 203, 8
+        CTEXT           "see the annoying dialog upon startup.  Please", 
+                        1104, 1, 41, 203, 8
+        CTEXT           "encourage your friends to register too!", 1105, 1, 
+                        30, 203, 8
+        DEFPUSHBUTTON   "~Ok", DID_OK, 83, 5, 40, 14
+    END
+END
+
+/* Dialog for unsuccessful registration */
+DLGTEMPLATE SORRY_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Registration", SORRY_DLG_ID, 12, 6, 206, 96, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Ooooooooooops!!", 1101, 0, 62, 203, 8
+        ICON            SOB_ICO, SOB_ICO, 89, 74, 20, 16, WS_GROUP
+        CTEXT           "Either the ID has been entered incorrectly", 1103, 
+                        1, 51, 203, 8
+        CTEXT           "or you have not registered and received a", 1104, 1, 
+                        40, 203, 8
+        CTEXT           "valid registration ID.  Please do so.", 1105, 1, 29, 
+                        203, 8
+        DEFPUSHBUTTON   "~Ok", DID_OK, 81, 4, 40, 14
+    END
+END
+
+/* Help table */
+HELPTABLE   DEF_HELP_TABLE
+{
+    HELPITEM MENU_ID, SUBTABLE_MAIN,  PANEL_MAIN
+}
+
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+   HELPSUBITEM     MENU_HELP_ID,              PANEL_HELP
+   HELPSUBITEM     MENU_HELPINDEX_ID,         PANEL_HELPINDEX
+   HELPSUBITEM     MENU_HELPEXTENDED_ID,      PANEL_HELPEXTENDED
+   HELPSUBITEM     MENU_HELPKEYSHELP_ID,      PANEL_HELPKEYS
+   HELPSUBITEM     MENU_HELPHELPFORHELP_ID,   PANEL_HELPHELPFORHELP
+   HELPSUBITEM     MENU_HELPABOUT_ID,         PANEL_HELPABOUT
+   HELPSUBITEM     MENU_SPEED_ID,             PANEL_GAMESPEED
+   HELPSUBITEM     MENU_KEY_ID,               PANEL_KEYS
+   HELPSUBITEM     MENU_START_ID,             PANEL_START
+   HELPSUBITEM     MENU_STOP_ID,              PANEL_STOP
+   HELPSUBITEM     MENU_EXIT_ID,              PANEL_EXIT
+   HELPSUBITEM     MENU_PAUSE_ID,             PANEL_PAUSE
+   HELPSUBITEM     MENU_BULLET_ID,            PANEL_BULLETS
+   HELPSUBITEM     MENU_SHIPS_ID,             PANEL_SHIPS
+   HELPSUBITEM     MENU_SMARTS_ID,			  PANEL_SMARTS
+   HELPSUBITEM     MENU_FRAME_CONTROLS_ID,    PANEL_FRAMECONTROLS
+   HELPSUBITEM     MENU_OBJECT_SIZE_ID,       PANEL_OBJECTSIZE
+   HELPSUBITEM     MENU_HISCORE_ID,           PANEL_HIGHSCORE
+   HELPSUBITEM     MENU_SOUND_ID,             PANEL_SOUND
+   HELPSUBITEM     MENU_SONAR_ID,             PANEL_SONAR
+   HELPSUBITEM     MENU_REGISTER_ID,          PANEL_REGISTER
+   HELPSUBITEM     MENU_MOUSE_ID,             PANEL_MOUSE
+   HELPSUBITEM     MENU_MUSIC_ID,             PANEL_MUSIC
+   HELPSUBITEM     MENU_BUBBLES_ID,           PANEL_BUBBLES
+   HELPSUBITEM     MENU_DEMO_PLAY_ID,         PANEL_DEMO_PLAY
+   HELPSUBITEM     MENU_DEMO_RECORD_ID,       PANEL_DEMO_RECORD
+}
+
+
+

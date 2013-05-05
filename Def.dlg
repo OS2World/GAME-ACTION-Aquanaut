@@ -1,0 +1,209 @@
+DLGINCLUDE 1 "DEFID.H"
+
+DLGTEMPLATE KEY_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Key Selection", KEY_DLG_ID, -19, -20, 184, 159, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        AUTORADIOBUTTON "Up", UP_ID, 13, 86, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Down", DOWN_ID, 13, 76, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Turn", TURN_ID, 13, 66, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Thrust", THRUST_ID, 13, 56, 39, 10, 
+                        BS_NOCURSORSELECT | BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Fire", FIRE_ID, 13, 46, 39, 10, BS_NOCURSORSELECT | 
+                        BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Smart Bomb", SMART_ID, 13, 36, 65, 10, 
+                        BS_NOCURSORSELECT | BS_NOPOINTERFOCUS | WS_TABSTOP
+        AUTORADIOBUTTON "Hyperspace", HYPER_ID, 13, 26, 60, 10, 
+                        BS_NOCURSORSELECT | BS_NOPOINTERFOCUS | WS_TABSTOP
+        LTEXT           "A", UP_TEXT_ID, 100, 87, 70, 8
+        LTEXT           "Z", DOWN_TEXT_ID, 100, 77, 70, 8
+        LTEXT           "Space", TURN_TEXT_ID, 100, 67, 70, 8
+        LTEXT           ".", THRUST_TEXT_ID, 100, 57, 70, 8
+        LTEXT           ",", FIRE_TEXT_ID, 100, 47, 70, 8
+        LTEXT           "/", SMART_TEXT_ID, 100, 37, 70, 8
+        LTEXT           "Shift (L)", HYPER_TEXT_ID, 100, 27, 70, 8
+        LTEXT           "Select a button then press a key to be", 
+                        MENU_HELP_ID, 9, 109, 169, 8
+        LTEXT           "used for that function:", MENU_HELPINDEX_ID, 9, 101, 
+                        141, 8
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 11, 6, 40, 14
+        PUSHBUTTON      "~Cancel", MUTANTL_BMP, 59, 6, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 107, 6, 40, 14
+        LTEXT           "Select Turn/Thrust or Left/Right key", DID_HELP, 9, 
+                        142, 169, 8
+        LTEXT           "functions:", DID_HELP, 9, 134, 151, 8
+        AUTORADIOBUTTON "Turn/Thrust", TURN_THRUST_ID, 13, 122, 67, 10, 
+                        WS_TABSTOP
+        AUTORADIOBUTTON "Left/Right", LEFT_RIGHT_ID, 97, 122, 63, 10, 
+                        WS_TABSTOP
+        CONTROL         "", DID_HELP, 3, 121, 178, 34, WC_STATIC, 
+                        SS_FGNDFRAME | WS_GROUP | WS_VISIBLE
+        CONTROL         "", DID_HELP, 3, 24, 178, 95, WC_STATIC, 
+                        SS_FGNDFRAME | WS_GROUP | WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE SPEED_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Game Speed Setting", SPEED_DLG_ID, 105, 28, 157, 94, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Move the slider to set the pace of", MENU_GAME_ID, 
+                        4, 80, 142, 8
+        LTEXT           "the game:", MENU_START_ID, 4, 71, 84, 8
+        CONTROL         "", SLIDER_ID, 3, 25, 152, 33, WC_SLIDER, 
+                        SLS_HORIZONTAL | SLS_CENTER | SLS_SNAPTOINCREMENT | 
+                        SLS_BUTTONSLEFT | SLS_RIBBONSTRIP | SLS_HOMELEFT | 
+                        SLS_PRIMARYSCALE1 | WS_VISIBLE
+                        CTLDATA 12, 0, 10, 20, 10, 20
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 11, 4, 40, 14
+        PUSHBUTTON      "~Cancel", MUTANTL_BMP, 54, 4, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 97, 4, 40, 14
+    END
+END
+
+DLGTEMPLATE SIZE_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Object Size Setting", SIZE_DLG_ID, 83, 25, 161, 94, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Move the slider to set the size of", MENU_GAME_ID, 
+                        4, 80, 142, 8
+        LTEXT           "the game objects:", MENU_START_ID, 4, 71, 84, 8
+        CONTROL         "", SLIDER_ID, 2, 25, 157, 33, WC_SLIDER, 
+                        SLS_HORIZONTAL | SLS_CENTER | SLS_SNAPTOINCREMENT | 
+                        SLS_BUTTONSLEFT | SLS_RIBBONSTRIP | SLS_HOMELEFT | 
+                        SLS_PRIMARYSCALE1 | WS_VISIBLE
+                        CTLDATA 12, 0, 10, 20, 10, 20
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 13, 4, 40, 14
+        PUSHBUTTON      "~Cancel", MUTANTL_BMP, 56, 4, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 99, 4, 40, 14
+    END
+END
+
+DLGTEMPLATE UNREG_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Aquanaut Registration", UNREG_DLG_ID, 113, 9, 204, 145, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        CTEXT           "This copy of", PROD_INFO_DLG_ID, 3, 132, 199, 8
+        CTEXT           "is not registered.  While still being fully", 
+                        PROD_INFO_DLG_ID, 3, 70, 199, 8
+        CTEXT           "playable, this annoying box will be displayed", 
+                        PROD_INFO_DLG_ID, 3, 60, 199, 8
+        CTEXT           "every time the game is run.  Read the", 
+                        PROD_INFO_DLG_ID, 3, 50, 199, 8
+        CTEXT           "help text to find out how to register the game.", 
+                        PROD_INFO_DLG_ID, 3, 40, 199, 8
+        CTEXT           "Check all boxes around the logo to continue.", 
+                        PROD_INFO_DLG_ID, 4, 25, 199, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        DEFPUSHBUTTON   "~Play Aquanaut", UNREG_OK, 11, 2, 84, 14
+        PUSHBUTTON      "~Registration Help", DID_HELP, 108, 2, 84, 14
+        AUTOCHECKBOX    "", UNREG_CB0, 36, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB1, 76, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB2, 156, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB3, 116, 80, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB4, 36, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB5, 76, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB6, 156, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB7, 116, 121, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB8, 23, 100, 11, 10
+        AUTOCHECKBOX    "", UNREG_CB9, 169, 100, 11, 10
+        CONTROL         "", 612, 36, 91, 129, 29, "LogoClass", WS_GROUP | 
+                        WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE REG_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Registration", REG_DLG_ID, 12, 6, 185, 84, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Enter your name and the ID you received", MENU_ID, 
+                        3, 69, 178, 8
+        LTEXT           "when you registered Aquanaut!", MENU_ID, 3, 59, 178, 
+                        8
+        ENTRYFIELD      "", REG_NAME_ID, 42, 44, 131, 8, ES_MARGIN
+        LTEXT           "Name :", MENU_ID, 4, 44, 35, 8
+        ENTRYFIELD      "", REG_ID_ID, 42, 29, 131, 8, ES_MARGIN
+        LTEXT           "ID :", MENU_ID, 19, 29, 18, 8
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 6, 3, 40, 14
+        PUSHBUTTON      "~Cancel", MUTANTL_BMP, 56, 3, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 106, 3, 40, 14
+    END
+END
+
+DLGTEMPLATE HISCORE_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "High Score Table", HISCORE_DLG_ID, 12, 8, 198, 185, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", NOTEBOOK_ID, 8, 22, 174, 150, WC_NOTEBOOK, 
+                        BKS_BACKPAGESBR | BKS_MAJORTABRIGHT | BKS_SQUARETABS | 
+                        BKS_STATUSTEXTLEFT | BKS_STATUSTEXTCENTER | 
+                        BKS_TABTEXTLEFT | WS_GROUP | WS_TABSTOP | WS_VISIBLE
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 6, 4, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 49, 4, 40, 14
+    END
+END
+
+DLGTEMPLATE CONGRATS_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Registration", CONGRATS_DLG_ID, 12, 12, 206, 96, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Congratulations!!", 1101, 2, 63, 203, 8
+        ICON            SMILE_ICO, SMILE_ICO, 91, 75, 20, 16, WS_GROUP
+        CTEXT           "Thank you for registering.  You shall no longer", 
+                        1103, 1, 52, 203, 8
+        CTEXT           "see the annoying dialog upon startup.  Please", 
+                        1104, 1, 41, 203, 8
+        CTEXT           "encourage your friends to register too!", 1105, 1, 
+                        30, 203, 8
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 83, 5, 40, 14
+    END
+END
+
+DLGTEMPLATE SORRY_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Registration", SORRY_DLG_ID, 12, 6, 206, 96, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Ooooooooooops!!", 1101, 0, 62, 203, 8
+        ICON            SOB_ICO, SOB_ICO, 89, 74, 20, 16, WS_GROUP
+        CTEXT           "Either the ID has been entered incorrectly", 1103, 
+                        1, 51, 203, 8
+        CTEXT           "or you have not registered and received a", 1104, 1, 
+                        40, 203, 8
+        CTEXT           "valid registration ID.  Please do so.", 1105, 1, 29, 
+                        203, 8
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 81, 4, 40, 14
+    END
+END
+
+DLGTEMPLATE PROD_INFO_DLG_ID LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", PROD_INFO_DLG_ID, 32, 8, 178, 124, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", PROD_LOGO_ID, 24, 89, 128, 28, "LogoClass", 
+                        WS_GROUP | WS_VISIBLE
+        CTEXT           "All Rights Reserved", 0, 3, 50, 172, 8
+        DEFPUSHBUTTON   "~Ok", LANDERL_BMP, 67, 3, 40, 14
+        CTEXT           "Version 1.1", PROD_LOGO_ID, 3, 72, 171, 8
+        CTEXT           "Copyright (c) 1994.  Paul Stanley", 502, 3, 61, 172, 
+                        8
+        LTEXT           "Registered To:", 503, 59, 35, 61, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        CTEXT           "", 504, 10, 25, 156, 8
+        CONTROL         "", 505, 8, 22, 162, 24, WC_STATIC, SS_FGNDFRAME | 
+                        WS_GROUP | WS_VISIBLE
+        CONTROL         "", 506, 8, 48, 162, 73, WC_STATIC, SS_FGNDFRAME | 
+                        WS_GROUP | WS_VISIBLE
+    END
+END
